@@ -1,0 +1,153 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedInAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "olerblaine@gmail.com";
+    }
+
+    function isAssetAdmin() {
+      return isSignedInAdmin();
+    }
+
+    function isSignedInApplicant(applicationId) {
+      return request.auth != null
+        && request.auth.uid == applicationId
+        && request.auth.token.email is string
+        && request.auth.token.email.size() > 0
+        && request.auth.token.firebase.sign_in_provider != "anonymous";
+    }
+
+    function validApplicationRole(role) {
+      return role in ["Project Manager", "Representative (Investor Finder)", "Lead Animators", "Community Management", "Teasers & Trailers Team"];
+    }
+
+    function validApplicationStatus(status) {
+      return status in ["pending", "accepted", "declined"];
+    }
+
+    function validApplicationContent(data) {
+      return data.name is string
+        && data.name.size() > 0
+        && data.name.size() <= 80
+        && data.contact is string
+        && data.contact.size() > 0
+        && data.contact.size() <= 120
+        && data.role is string
+        && validApplicationRole(data.role)
+        && data.robloxUsername is string
+        && data.robloxUsername.size() <= 80
+        && data.portfolioUrl is string
+        && data.portfolioUrl.size() <= 240
+        && data.experience is string
+        && data.experience.size() > 0
+        && data.experience.size() <= 1200
+        && data.reason is string
+        && data.reason.size() > 0
+        && data.reason.size() <= 1200;
+    }
+
+    match /announcements/{announcementId} {
+      allow read: if request.auth != null;
+      allow create: if isSignedInAdmin()
+        && request.resource.data.keys().hasOnly(["title", "body", "createdAt"])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 140
+        && request.resource.data.body is string
+        && request.resource.data.body.size() > 0
+        && request.resource.data.body.size() <= 5000;
+      allow update, delete: if isSignedInAdmin();
+    }
+
+    match /suggestions/{suggestionId} {
+      allow read, update, delete: if isSignedInAdmin();
+      allow create: if request.resource.data.keys().hasOnly(["name", "contact", "request", "createdAt"])
+        && request.resource.data.keys().hasAll(["request", "createdAt"])
+        && request.resource.data.request is string
+        && request.resource.data.request.size() > 0
+        && request.resource.data.request.size() <= 1200
+        && (!request.resource.data.keys().hasAny(["name"]) || (request.resource.data.name is string && request.resource.data.name.size() <= 80))
+        && (!request.resource.data.keys().hasAny(["contact"]) || (request.resource.data.contact is string && request.resource.data.contact.size() <= 120))
+        && request.resource.data.createdAt == request.time;
+    }
+
+    match /jobApplications/{applicationId} {
+      allow get: if isSignedInAdmin() || isSignedInApplicant(applicationId);
+      allow list: if isSignedInAdmin();
+      allow create: if isSignedInApplicant(applicationId)
+        && request.resource.data.keys().hasOnly(["name", "contact", "role", "robloxUsername", "portfolioUrl", "experience", "reason", "applicantUid", "applicantEmail", "status", "createdAt", "updatedAt"])
+        && request.resource.data.keys().hasAll(["name", "contact", "role", "robloxUsername", "portfolioUrl", "experience", "reason", "applicantUid", "applicantEmail", "status", "createdAt", "updatedAt"])
+        && validApplicationContent(request.resource.data)
+        && request.resource.data.applicantUid == request.auth.uid
+        && request.resource.data.applicantEmail == request.auth.token.email
+        && request.resource.data.status == "pending"
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if (
+          isSignedInApplicant(applicationId)
+          && resource.data.status == "pending"
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["name", "contact", "role", "robloxUsername", "portfolioUrl", "experience", "reason", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["name", "contact", "role", "robloxUsername", "portfolioUrl", "experience", "reason", "applicantUid", "applicantEmail", "status", "createdAt", "updatedAt"])
+          && validApplicationContent(request.resource.data)
+          && request.resource.data.applicantUid == request.auth.uid
+          && request.resource.data.applicantEmail == resource.data.applicantEmail
+          && request.resource.data.status == "pending"
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.updatedAt == request.time
+        ) || (
+          isSignedInApplicant(applicationId)
+          && resource.data.status == "declined"
+          && request.resource.data.keys().hasOnly(["name", "contact", "role", "robloxUsername", "portfolioUrl", "experience", "reason", "applicantUid", "applicantEmail", "status", "createdAt", "updatedAt"])
+          && request.resource.data.keys().hasAll(["name", "contact", "role", "robloxUsername", "portfolioUrl", "experience", "reason", "applicantUid", "applicantEmail", "status", "createdAt", "updatedAt"])
+          && validApplicationContent(request.resource.data)
+          && request.resource.data.applicantUid == request.auth.uid
+          && request.resource.data.applicantEmail == request.auth.token.email
+          && request.resource.data.status == "pending"
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.updatedAt == request.time
+        ) || (
+          isSignedInAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["status", "reviewedAt", "reviewedBy", "updatedAt"])
+          && validApplicationStatus(request.resource.data.status)
+          && request.resource.data.updatedAt == request.time
+          && (
+            (request.resource.data.status == "pending" && !request.resource.data.keys().hasAny(["reviewedAt", "reviewedBy"]))
+            || (request.resource.data.status in ["accepted", "declined"]
+              && request.resource.data.reviewedAt == request.time
+              && request.resource.data.reviewedBy is string
+              && request.resource.data.reviewedBy.size() > 0
+              && request.resource.data.reviewedBy.size() <= 180)
+          )
+        );
+      allow delete: if isSignedInAdmin();
+    }
+
+    match /downloadAssets/{assetId} {
+      allow read: if true;
+      allow create: if isAssetAdmin()
+        && request.resource.data.keys().hasOnly(["title", "description", "fileName", "downloadUrl", "storagePath", "contentType", "createdAt"])
+        && request.resource.data.keys().hasAll(["title", "description", "fileName", "downloadUrl", "contentType", "createdAt"])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 120
+        && request.resource.data.description is string
+        && request.resource.data.description.size() <= 500
+        && request.resource.data.fileName is string
+        && request.resource.data.fileName.size() > 0
+        && request.resource.data.fileName.size() <= 180
+        && request.resource.data.downloadUrl is string
+        && request.resource.data.downloadUrl.size() > 0
+        && request.resource.data.contentType is string
+        && request.resource.data.contentType.size() > 0
+        && (!request.resource.data.keys().hasAny(["storagePath"]) || (request.resource.data.storagePath is string && request.resource.data.storagePath.matches("^download-assets/.*")))
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if isAssetAdmin();
+    }
+
+    match /admins/{userId} {
+      allow read, create, update, delete: if false;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAssetAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "olerblaine@gmail.com";
+    }
+
+    match /download-assets/{allPaths=**} {
+      allow read: if true;
+      allow create, update: if isAssetAdmin()
+        && request.resource.size < 25 * 1024 * 1024;
+      allow delete: if isAssetAdmin();
+    }
+  }
+}
