@@ -11,12 +11,12 @@ export function HomeGamesSection() {
     <section id="games" className="px-5 py-24">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
-          eyebrow="Games"
-          title="Highlighted Gambox projects."
-          text="Current Roblox experiences and studio projects moving through production."
+          eyebrow="3 Gambox games"
+          title="The current game lineup."
+          text="SNIPER!, Grimwood Blackout, and Expendable are the studio projects currently on the board."
         />
 
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-3">
           {games.slice(0, 3).map((game, index) => (
             <motion.article
               key={game.title}
@@ -25,14 +25,14 @@ export function HomeGamesSection() {
               whileHover={{ y: -8 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="highlight-game-card highlight-game-card-motion overflow-hidden rounded-[2rem] border border-violet-200/45 shadow-[0_18px_60px_rgba(70,48,130,0.1)] backdrop-blur-xl"
+              className="highlight-game-card highlight-game-card-motion overflow-hidden rounded-[2rem] border border-violet-200/45 shadow-[0_22px_70px_rgba(70,48,130,0.13)] backdrop-blur-xl"
             >
-              <div className="relative h-52 overflow-hidden">
+              <div className="relative h-64 overflow-hidden">
                 {game.title === "Grimwood Blackout" ? (
                   <img src={grimwoodArt} alt="" className="highlight-game-media h-full w-full object-cover" />
                 ) : (
                   <div className="highlight-game-media highlight-game-fallback flex h-full w-full items-center justify-center">
-                    <img src={gamboxMark} alt="" className="h-20 w-20 rounded-[2rem] shadow-2xl shadow-violet-950/20" />
+                    <img src={gamboxMark} alt="" className="h-24 w-24 rounded-[2rem] shadow-2xl shadow-violet-950/20" />
                   </div>
                 )}
                 <div className="highlight-game-overlay absolute inset-0" />
@@ -46,12 +46,12 @@ export function HomeGamesSection() {
                 </span>
               </div>
 
-              <div className="p-6">
+              <div className="p-7">
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-violet-200/55 bg-violet-50/80 text-violet-700">
                     <Gamepad2 size={19} />
                   </span>
-                  <h3 className="text-2xl font-black text-slate-950">{game.title}</h3>
+                  <h3 className="text-3xl font-black text-slate-950">{game.title}</h3>
                 </div>
                 <p className="mt-4 leading-7 text-slate-600">{game.description}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -61,6 +61,9 @@ export function HomeGamesSection() {
                     </span>
                   ))}
                 </div>
+                <Link to={`/games/${game.slug}`} className="animated-cta mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-violet-200/45 bg-white/55 px-5 py-3 text-sm font-black text-violet-700 shadow-lg shadow-violet-950/5 backdrop-blur-xl transition hover:bg-white/75">
+                  View Details <ArrowRight className="animated-cta-icon" size={16} />
+                </Link>
               </div>
             </motion.article>
           ))}
@@ -68,7 +71,7 @@ export function HomeGamesSection() {
 
         <div className="mt-8 flex justify-center">
           <Link to="/games" className="animated-cta inline-flex items-center justify-center gap-2 rounded-full border border-violet-200/55 bg-white/55 px-7 py-4 font-black text-violet-700 shadow-lg shadow-violet-950/5 backdrop-blur-xl transition hover:bg-white/75">
-            More Games <ArrowRight className="animated-cta-icon" size={18} />
+            Explore All 3 Games <ArrowRight className="animated-cta-icon" size={18} />
           </Link>
         </div>
       </div>

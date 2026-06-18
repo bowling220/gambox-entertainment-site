@@ -71,11 +71,11 @@ export function Hero() {
             </p>
             <p className="mt-5 max-w-xl text-base leading-8 text-slate-700 md:text-lg">{activeGame.description}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link to="/play-now" className="animated-cta button-shimmer inline-flex items-center justify-center gap-2 rounded-full border border-amber-500/35 bg-amber-300/70 px-7 py-4 font-black text-slate-950 shadow-lg shadow-amber-400/20 backdrop-blur-xl transition hover:bg-amber-300/85">
-                Play Now <ArrowRight className="animated-cta-icon" size={18} />
+              <Link to="/games" className="animated-cta button-shimmer inline-flex items-center justify-center gap-2 rounded-full border border-amber-500/35 bg-amber-300/70 px-7 py-4 font-black text-slate-950 shadow-lg shadow-amber-400/20 backdrop-blur-xl transition hover:bg-amber-300/85">
+                Follow Development <ArrowRight className="animated-cta-icon" size={18} />
               </Link>
-              <Link to="/games" className="animated-cta inline-flex items-center justify-center gap-2 rounded-full border border-violet-200/45 bg-white/45 px-7 py-4 font-black text-slate-950 shadow-lg shadow-violet-950/5 backdrop-blur-xl transition hover:bg-white/65">
-                View Game
+              <Link to="/careers" className="animated-cta inline-flex items-center justify-center gap-2 rounded-full border border-violet-200/45 bg-white/45 px-7 py-4 font-black text-slate-950 shadow-lg shadow-violet-950/5 backdrop-blur-xl transition hover:bg-white/65">
+                Apply to Help Build
               </Link>
             </div>
           </motion.div>

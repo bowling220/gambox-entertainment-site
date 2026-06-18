@@ -17,11 +17,24 @@ import {
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+const firebaseEnvKeys = [
+  "VITE_FIREBASE_API_KEY",
+  "VITE_FIREBASE_AUTH_DOMAIN",
+  "VITE_FIREBASE_PROJECT_ID",
+  "VITE_FIREBASE_STORAGE_BUCKET",
+  "VITE_FIREBASE_MESSAGING_SENDER_ID",
+  "VITE_FIREBASE_APP_ID",
+  "VITE_FIREBASE_MEASUREMENT_ID",
+];
+
+export const firebaseConfigured = firebaseEnvKeys.every((key) => Boolean(import.meta.env[key]));
+
 function readFirebaseEnv(key: string) {
   const value = import.meta.env[key];
 
   if (!value) {
-    throw new Error(`Missing Firebase environment variable: ${key}`);
+    console.warn(`Missing Firebase environment variable: ${key}. Firebase-backed features may be unavailable.`);
+    return "local-preview-placeholder";
   }
 
   return value;
@@ -43,7 +56,7 @@ export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
 
 export const authPersistenceReady = setPersistence(auth, browserLocalPersistence);
-export const analyticsReady = isSupported().then((supported) => (supported ? getAnalytics(firebaseApp) : null));
+export const analyticsReady = firebaseConfigured ? isSupported().then((supported) => (supported ? getAnalytics(firebaseApp) : null)) : Promise.resolve(null);
 export const adminEmail = "olerblaine@gmail.com";
 export const applicantEmailStorageKey = "gamboxApplicantEmailForSignIn";
 

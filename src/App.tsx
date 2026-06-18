@@ -5,6 +5,7 @@ import { AboutPage } from "./pages/AboutPage";
 import { AdminApplicationsPage } from "./pages/AdminApplicationsPage";
 import { AnnouncementsPage } from "./pages/AnnouncementsPage";
 import { CareersPage } from "./pages/CareersPage";
+import { GameDetailPage } from "./pages/GameDetailPage";
 import { GamesPage } from "./pages/GamesPage";
 import { IndexPage } from "./pages/IndexPage";
 import { MembersPage } from "./pages/MembersPage";
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="play-now" element={<ComingSoon />} />
           <Route path="suggestions" element={<SuggestionsPage />} />
           <Route path="games" element={<GamesPage />} />
+          <Route path="games/:slug" element={<GameDetailPage />} />
           <Route path="announcements" element={<AnnouncementsPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="members" element={<MembersPage />} />

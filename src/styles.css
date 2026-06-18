@@ -101,29 +101,6 @@ body {
   }
 }
 
-@keyframes hero-logo-float {
-  0% {
-    opacity: .22;
-    transform: translate3d(0, 0, 0) rotate(var(--particle-rotate, 0deg)) scale(var(--particle-scale, 1));
-  }
-  24% {
-    opacity: .38;
-    transform: translate3d(var(--particle-drift-x, 1rem), var(--particle-drift-y, -1rem), 0) rotate(calc(var(--particle-rotate, 0deg) + 10deg)) scale(var(--particle-scale, 1));
-  }
-  52% {
-    opacity: .28;
-    transform: translate3d(var(--particle-drift-x-2, -1.2rem), var(--particle-drift-y-2, .8rem), 0) rotate(calc(var(--particle-rotate, 0deg) - 7deg)) scale(var(--particle-scale, 1));
-  }
-  78% {
-    opacity: .42;
-    transform: translate3d(var(--particle-drift-x-3, .7rem), var(--particle-drift-y-3, 1.1rem), 0) rotate(calc(var(--particle-rotate, 0deg) + 16deg)) scale(var(--particle-scale, 1));
-  }
-  100% {
-    opacity: .22;
-    transform: translate3d(0, 0, 0) rotate(var(--particle-rotate, 0deg)) scale(var(--particle-scale, 1));
-  }
-}
-
 @keyframes loading-status-dot {
   0%, 72%, 100% {
     opacity: .35;
@@ -168,7 +145,6 @@ body {
 
   .button-shimmer::after,
   .hero-background-drift,
-  .site-logo-particle,
   .application-success-burst,
   .application-success-particle,
   .loading-status-badge::after,
@@ -244,61 +220,6 @@ body {
   transform-origin: center;
   will-change: transform;
 }
-
-.site-particle-field {
-  height: 100svh;
-  left: 0;
-  overflow: visible;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100vw;
-  z-index: 1;
-}
-
-.site-logo-particle {
-  animation: hero-logo-float var(--particle-duration, 15s) ease-in-out infinite;
-  animation-delay: var(--particle-delay, 0s);
-  display: block;
-  left: var(--particle-left);
-  position: absolute;
-  top: calc(var(--particle-top) + (var(--particle-band, 0) * 96svh));
-  transform-origin: center;
-  width: var(--particle-size, 1.2rem);
-  will-change: transform, opacity;
-}
-
-.site-logo-particle img {
-  display: block;
-  filter: drop-shadow(0 10px 22px rgba(70, 48, 130, .2)) saturate(1.08) contrast(1.08);
-  height: auto;
-  opacity: .88;
-  width: 100%;
-}
-
-.site-logo-particle--1 { --particle-left: 3%; --particle-top: 10%; --particle-size: 1.55rem; --particle-scale: .85; --particle-rotate: -12deg; --particle-drift-x: 2.5rem; --particle-drift-y: -1rem; --particle-drift-x-2: 1rem; --particle-drift-y-2: 1.8rem; --particle-drift-x-3: 3.4rem; --particle-drift-y-3: .8rem; --particle-duration: 23s; }
-.site-logo-particle--2 { --particle-left: 18%; --particle-top: 5%; --particle-size: 2.2rem; --particle-scale: 1; --particle-rotate: 10deg; --particle-drift-x: -2rem; --particle-drift-y: 1.6rem; --particle-drift-x-2: .7rem; --particle-drift-y-2: 2.8rem; --particle-drift-x-3: -3.1rem; --particle-drift-y-3: .2rem; --particle-duration: 28s; --particle-delay: -6s; }
-.site-logo-particle--3 { --particle-left: 38%; --particle-top: 13%; --particle-size: 1.35rem; --particle-scale: .8; --particle-rotate: 22deg; --particle-drift-x: 3.1rem; --particle-drift-y: 1rem; --particle-drift-x-2: -1.4rem; --particle-drift-y-2: 2.4rem; --particle-drift-x-3: 1.2rem; --particle-drift-y-3: -1.7rem; --particle-duration: 24s; --particle-delay: -11s; }
-.site-logo-particle--4 { --particle-left: 62%; --particle-top: 8%; --particle-size: 2.05rem; --particle-scale: .92; --particle-rotate: -18deg; --particle-drift-x: -2.7rem; --particle-drift-y: -1.1rem; --particle-drift-x-2: -4rem; --particle-drift-y-2: 1.9rem; --particle-drift-x-3: -.9rem; --particle-drift-y-3: 2.8rem; --particle-duration: 30s; --particle-delay: -5s; }
-.site-logo-particle--5 { --particle-left: 85%; --particle-top: 17%; --particle-size: 1.25rem; --particle-scale: .75; --particle-rotate: 16deg; --particle-drift-x: -3.2rem; --particle-drift-y: 1.2rem; --particle-drift-x-2: -1rem; --particle-drift-y-2: -1.7rem; --particle-drift-x-3: -4.4rem; --particle-drift-y-3: .4rem; --particle-duration: 22s; --particle-delay: -2s; }
-.site-logo-particle--6 { --particle-left: 8%; --particle-top: 34%; --particle-size: 1.85rem; --particle-scale: .9; --particle-rotate: -28deg; --particle-drift-x: 3rem; --particle-drift-y: 1.5rem; --particle-drift-x-2: .6rem; --particle-drift-y-2: -2.4rem; --particle-drift-x-3: 4.2rem; --particle-drift-y-3: -.6rem; --particle-duration: 31s; --particle-delay: -14s; }
-.site-logo-particle--7 { --particle-left: 28%; --particle-top: 40%; --particle-size: 1.3rem; --particle-scale: .76; --particle-rotate: 8deg; --particle-drift-x: -2rem; --particle-drift-y: -1.8rem; --particle-drift-x-2: 2.4rem; --particle-drift-y-2: -2.8rem; --particle-drift-x-3: .9rem; --particle-drift-y-3: 1.6rem; --particle-duration: 25s; --particle-delay: -7s; }
-.site-logo-particle--8 { --particle-left: 52%; --particle-top: 37%; --particle-size: 2rem; --particle-scale: .95; --particle-rotate: -6deg; --particle-drift-x: 2.6rem; --particle-drift-y: -1.4rem; --particle-drift-x-2: -1.8rem; --particle-drift-y-2: -2.2rem; --particle-drift-x-3: 3.5rem; --particle-drift-y-3: 1rem; --particle-duration: 29s; --particle-delay: -16s; }
-.site-logo-particle--9 { --particle-left: 75%; --particle-top: 42%; --particle-size: 1.15rem; --particle-scale: .72; --particle-rotate: 30deg; --particle-drift-x: -3.5rem; --particle-drift-y: 1.2rem; --particle-drift-x-2: -1.2rem; --particle-drift-y-2: -2.2rem; --particle-drift-x-3: -4.5rem; --particle-drift-y-3: -.3rem; --particle-duration: 21s; --particle-delay: -9s; }
-.site-logo-particle--10 { --particle-left: 92%; --particle-top: 51%; --particle-size: 1.65rem; --particle-scale: .84; --particle-rotate: -20deg; --particle-drift-x: -3.8rem; --particle-drift-y: -1.1rem; --particle-drift-x-2: -5rem; --particle-drift-y-2: 1.4rem; --particle-drift-x-3: -1.6rem; --particle-drift-y-3: 2.2rem; --particle-duration: 27s; --particle-delay: -12s; }
-.site-logo-particle--11 { --particle-left: 4%; --particle-top: 63%; --particle-size: 1.18rem; --particle-scale: .7; --particle-rotate: 12deg; --particle-drift-x: 4.2rem; --particle-drift-y: -.5rem; --particle-drift-x-2: 2.1rem; --particle-drift-y-2: 2.1rem; --particle-drift-x-3: 5.3rem; --particle-drift-y-3: 1.1rem; --particle-duration: 26s; --particle-delay: -4s; }
-.site-logo-particle--12 { --particle-left: 21%; --particle-top: 76%; --particle-size: 1.9rem; --particle-scale: .9; --particle-rotate: -14deg; --particle-drift-x: 2.2rem; --particle-drift-y: -2rem; --particle-drift-x-2: -1.3rem; --particle-drift-y-2: -1rem; --particle-drift-x-3: 3.1rem; --particle-drift-y-3: .8rem; --particle-duration: 32s; --particle-delay: -19s; }
-.site-logo-particle--13 { --particle-left: 43%; --particle-top: 68%; --particle-size: 1.35rem; --particle-scale: .78; --particle-rotate: 24deg; --particle-drift-x: -2.8rem; --particle-drift-y: 1rem; --particle-drift-x-2: 2rem; --particle-drift-y-2: 2.4rem; --particle-drift-x-3: -.7rem; --particle-drift-y-3: -1.7rem; --particle-duration: 24s; --particle-delay: -13s; }
-.site-logo-particle--14 { --particle-left: 63%; --particle-top: 77%; --particle-size: 1.7rem; --particle-scale: .86; --particle-rotate: -30deg; --particle-drift-x: 3.4rem; --particle-drift-y: -1.5rem; --particle-drift-x-2: -.8rem; --particle-drift-y-2: -2.6rem; --particle-drift-x-3: 2.7rem; --particle-drift-y-3: 1.4rem; --particle-duration: 28s; --particle-delay: -8s; }
-.site-logo-particle--15 { --particle-left: 81%; --particle-top: 70%; --particle-size: 1.24rem; --particle-scale: .73; --particle-rotate: 18deg; --particle-drift-x: -3rem; --particle-drift-y: -2rem; --particle-drift-x-2: -4.8rem; --particle-drift-y-2: .6rem; --particle-drift-x-3: -1.4rem; --particle-drift-y-3: 2rem; --particle-duration: 23s; --particle-delay: -15s; }
-.site-logo-particle--16 { --particle-left: 95%; --particle-top: 84%; --particle-size: 2rem; --particle-scale: .94; --particle-rotate: -8deg; --particle-drift-x: -4.8rem; --particle-drift-y: -1.8rem; --particle-drift-x-2: -2.4rem; --particle-drift-y-2: -3.2rem; --particle-drift-x-3: -5.8rem; --particle-drift-y-3: .5rem; --particle-duration: 34s; --particle-delay: -21s; }
-.site-logo-particle--17 { --particle-left: 12%; --particle-top: 88%; --particle-size: 1.4rem; --particle-scale: .82; --particle-rotate: 18deg; --particle-drift-x: 3rem; --particle-drift-y: -2.8rem; --particle-drift-x-2: 4.4rem; --particle-drift-y-2: -.8rem; --particle-drift-x-3: 1.1rem; --particle-drift-y-3: -3.4rem; --particle-duration: 29s; --particle-delay: -18s; }
-.site-logo-particle--18 { --particle-left: 36%; --particle-top: 91%; --particle-size: 1rem; --particle-scale: .72; --particle-rotate: -22deg; --particle-drift-x: -3.8rem; --particle-drift-y: -1.4rem; --particle-drift-x-2: -1.4rem; --particle-drift-y-2: -3.8rem; --particle-drift-x-3: 2rem; --particle-drift-y-3: -.7rem; --particle-duration: 26s; --particle-delay: -10s; }
-.site-logo-particle--19 { --particle-left: 55%; --particle-top: 92%; --particle-size: 1.55rem; --particle-scale: .86; --particle-rotate: 6deg; --particle-drift-x: 2.6rem; --particle-drift-y: -2.4rem; --particle-drift-x-2: -2rem; --particle-drift-y-2: -1.1rem; --particle-drift-x-3: 3.8rem; --particle-drift-y-3: -4rem; --particle-duration: 31s; --particle-delay: -24s; }
-.site-logo-particle--20 { --particle-left: 72%; --particle-top: 6%; --particle-size: 1.05rem; --particle-scale: .74; --particle-rotate: -10deg; --particle-drift-x: -3.2rem; --particle-drift-y: 2.4rem; --particle-drift-x-2: -5.2rem; --particle-drift-y-2: -.2rem; --particle-drift-x-3: -.7rem; --particle-drift-y-3: 3.6rem; --particle-duration: 24s; --particle-delay: -17s; }
-.site-logo-particle--21 { --particle-left: 88%; --particle-top: 30%; --particle-size: 1.85rem; --particle-scale: .9; --particle-rotate: 26deg; --particle-drift-x: -4rem; --particle-drift-y: -1.6rem; --particle-drift-x-2: -1rem; --particle-drift-y-2: 2.6rem; --particle-drift-x-3: -5rem; --particle-drift-y-3: 1rem; --particle-duration: 33s; --particle-delay: -28s; }
-.site-logo-particle--22 { --particle-left: 31%; --particle-top: 23%; --particle-size: 1.15rem; --particle-scale: .78; --particle-rotate: -34deg; --particle-drift-x: 3.5rem; --particle-drift-y: 2.2rem; --particle-drift-x-2: -.8rem; --particle-drift-y-2: 3.4rem; --particle-drift-x-3: 4.8rem; --particle-drift-y-3: -.4rem; --particle-duration: 27s; --particle-delay: -20s; }
 
 .theme-dark .hero-overlay {
   background: linear-gradient(90deg, rgba(7,7,17,.96) 0%, rgba(17,16,39,.84) 42%, rgba(17,16,39,.34) 72%, rgba(7,7,17,.72) 100%);

@@ -2,28 +2,76 @@ import { FileText, Megaphone, ScrollText, ShieldCheck, Users, Wrench } from "luc
 
 export const games = [
   {
+    slug: "sniper",
     title: "SNIPER!",
     status: "In planning",
     description:
       "SNIPER! is a planned Gambox project. More real gameplay details will be shared once the concept is ready.",
     modes: ["Planned project", "Details coming soon", "Future release"],
     focus: ["Concept in progress", "Gameplay details pending", "Release details pending", "Team planning"],
+    knownDetails: [
+      "SNIPER! is listed as a planned Gambox project.",
+      "The team has not published confirmed gameplay systems yet.",
+      "The page will expand once the concept moves into a clearer production brief.",
+    ],
+    roadmap: [
+      ["Concept brief", "Planned"],
+      ["Gameplay direction", "Details pending"],
+      ["Prototype target", "Details pending"],
+      ["Release window", "Details pending"],
+    ],
   },
   {
+    slug: "grimwood-blackout",
     title: "Grimwood Blackout",
     status: "In development",
     description:
       "Scavenge forest ruins by day, keep the base generator running, and hold the fence through escalating zombie nights.",
     modes: ["Solo", "Team survival", "Wave defense"],
     focus: ["Generator pressure", "Fuel scavenging", "Weapon upgrades", "Class mastery"],
+    gameplayLoop: [
+      "Day: search ruined forest buildings for red fuel canisters while enemy pressure is lighter.",
+      "Night: defend the base, spend earned money on weapon upgrades, and keep the generator alive.",
+      "Blackout: if the generator runs dry, zombies enter the base and a boss threat appears until morning or recovery.",
+    ],
+    plannedMechanics: [
+      "Fuel canisters that respawn each day.",
+      "Generator states that control lights, base danger, and blackout events.",
+      "Zombie waves that scale across later nights and player count.",
+      "Weapon upgrades paid for by zombie kills.",
+      "Daily rewards, survival records, trophy road progress, and class mastery.",
+    ],
+    rolesNeeded: ["Builders", "Modelers", "Scripters"],
+    roadmap: [
+      ["Core gameplay loop", "In development"],
+      ["Forest base and ruined buildings", "In development"],
+      ["Generator and blackout logic", "Planned"],
+      ["Zombie wave scaling", "Planned"],
+      ["Rewards and mastery systems", "Planned"],
+      ["Public release details", "Details pending"],
+    ],
   },
   {
+    slug: "expendable",
     title: "Expendable",
     status: "In planning",
     description:
       "A second Gambox game assigned to its own team. Its full design brief and release details will be published later.",
     modes: ["Future release", "Dedicated team", "Details pending"],
     focus: ["Project brief pending", "Music work started", "Targeted after Grimwood", "Team planning"],
+    knownDetails: [
+      "Expendable is assigned to its own development team.",
+      "The full design brief has not been published yet.",
+      "Licensed lyrical music work has started for the project.",
+      "The project is targeted after Grimwood Blackout.",
+    ],
+    roadmap: [
+      ["Dedicated team setup", "Started"],
+      ["Music direction", "Started"],
+      ["Design documentation", "Planned"],
+      ["Gameplay prototype", "Details pending"],
+      ["Release window", "Details pending"],
+    ],
   },
 ];
 

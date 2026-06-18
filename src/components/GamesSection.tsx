@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
-import { Crosshair, Flame, Map, Trophy } from "lucide-react";
+import { ArrowRight, Crosshair, Flame, Map, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
 import gamboxMark from "../assets/gambox-brand-icon.png";
 import grimwoodArt from "../assets/grimwood-blackout-key-art.png";
 import { games } from "../data/siteData";
 import { SectionHeader } from "./SectionHeader";
 
 export function GamesSection() {
-  const [game] = games;
-  const otherGames = games.slice(1);
+  const game = games.find((item) => item.slug === "grimwood-blackout") ?? games[0];
   const featureIcons = [Flame, Crosshair, Map, Trophy];
   const detailCards =
     game.title === "Grimwood Blackout"
@@ -26,10 +26,65 @@ export function GamesSection() {
     <section id="games" className="px-5 py-24">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
-          eyebrow="Featured Game"
-          title={game.title}
-          text={game.description}
+          eyebrow="All games"
+          title="Three Gambox projects in production planning."
+          text="The studio lineup currently includes SNIPER!, Grimwood Blackout, and Expendable."
         />
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {games.map((lineupGame, index) => (
+            <motion.article
+              key={lineupGame.slug}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              className="highlight-game-card highlight-game-card-motion overflow-hidden rounded-[2rem] border border-violet-200/45 shadow-[0_22px_70px_rgba(70,48,130,0.13)] backdrop-blur-xl"
+            >
+              <div className="relative h-64 overflow-hidden">
+                {lineupGame.title === "Grimwood Blackout" ? (
+                  <img src={grimwoodArt} alt="" className="highlight-game-media h-full w-full object-cover" />
+                ) : (
+                  <div className="highlight-game-media highlight-game-fallback flex h-full w-full items-center justify-center">
+                    <img src={gamboxMark} alt="" className="h-24 w-24 rounded-[2rem] shadow-2xl shadow-violet-950/20" />
+                  </div>
+                )}
+                <div className="highlight-game-overlay absolute inset-0" />
+                <span className="loading-status-badge highlight-game-status absolute left-4 top-4 rounded-full border border-amber-500/35 bg-amber-300/80 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-slate-950 backdrop-blur-xl">
+                  <span>{lineupGame.status}</span>
+                  <span className="loading-status-dots" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
+                </span>
+              </div>
+
+              <div className="p-7">
+                <h3 className="text-3xl font-black text-slate-950">{lineupGame.title}</h3>
+                <p className="mt-4 leading-7 text-slate-600">{lineupGame.description}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {lineupGame.modes.map((mode) => (
+                    <span key={mode} className="rounded-full border border-violet-200/45 bg-violet-50/55 px-3 py-2 text-sm font-bold text-slate-700 backdrop-blur-xl">
+                      {mode}
+                    </span>
+                  ))}
+                </div>
+                <Link to={`/games/${lineupGame.slug}`} className="animated-cta mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-violet-200/45 bg-white/55 px-5 py-3 font-black text-violet-700 shadow-lg shadow-violet-950/5 backdrop-blur-xl transition hover:bg-white/75">
+                  Open Game Page <ArrowRight className="animated-cta-icon" size={17} />
+                </Link>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        <div className="mt-16">
+          <SectionHeader
+            eyebrow="Featured deep dive"
+            title={game.title}
+            text={game.description}
+          />
+        </div>
 
         <motion.article
           initial={{ opacity: 0, y: 24 }}
@@ -64,6 +119,9 @@ export function GamesSection() {
               </div>
               <h3 className="text-3xl font-black text-slate-950 md:text-5xl">{game.title}</h3>
               <p className="mt-4 max-w-2xl leading-8 text-slate-700">{game.description}</p>
+              <Link to={`/games/${game.slug}`} className="animated-cta mt-6 inline-flex items-center justify-center gap-2 rounded-full border border-amber-500/35 bg-amber-300/70 px-6 py-3 font-black text-slate-950 shadow-lg shadow-amber-400/20 backdrop-blur-xl transition hover:bg-amber-300/85">
+                Open Game Page <ArrowRight className="animated-cta-icon" size={18} />
+              </Link>
             </div>
           </div>
 
@@ -89,37 +147,6 @@ export function GamesSection() {
             </div>
           ))}
         </div>
-
-        {otherGames.length > 0 && (
-          <div className="mt-10 border-t border-slate-200 pt-10">
-            <h3 className="text-2xl font-black text-slate-950">More Gambox games</h3>
-            <div className="mt-5 grid gap-5 lg:grid-cols-2">
-              {otherGames.map((otherGame) => (
-                <article key={otherGame.title} className="section-panel p-6 md:p-8">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h4 className="text-3xl font-black text-slate-950">{otherGame.title}</h4>
-                    <span className="loading-status-badge rounded-full border border-violet-200 px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-violet-700">
-                      <span>{otherGame.status}</span>
-                      <span className="loading-status-dots" aria-hidden="true">
-                        <span />
-                        <span />
-                        <span />
-                      </span>
-                    </span>
-                  </div>
-                  <p className="mt-4 max-w-2xl leading-8 text-slate-600">{otherGame.description}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {otherGame.modes.map((mode) => (
-                      <span key={mode} className="rounded-full border border-violet-200/45 bg-violet-50/55 px-3 py-2 text-sm font-bold text-slate-700 backdrop-blur-xl">
-                        {mode}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
