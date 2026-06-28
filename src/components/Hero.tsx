@@ -38,10 +38,10 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.01 }}
           transition={{ duration: 1.35 }}
-          className="absolute inset-0"
+          className={`absolute inset-0 ${activeGame.slug === "sniper" ? "sniper-action-frame" : ""}`}
         >
           {getGameArt(activeGame.slug) ? (
-            <img src={getGameArt(activeGame.slug)} alt="" className="hero-background-drift h-full w-full object-cover object-[62%_center]" />
+            <img src={getGameArt(activeGame.slug)} alt="" className={`hero-background-drift h-full w-full object-cover object-[62%_center] ${activeGame.slug === "sniper" ? "sniper-action-art" : ""}`} />
           ) : (
             <div className="hero-fallback-bg flex h-full w-full items-center justify-center">
               <img src={gamboxMark} alt="" className="hero-background-drift h-40 w-40 rounded-[3rem] opacity-85 shadow-2xl shadow-violet-950/30" />

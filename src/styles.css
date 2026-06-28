@@ -121,6 +121,72 @@ body {
   }
 }
 
+@keyframes sniper-action-push {
+  0%, 100% {
+    filter: saturate(1.02) contrast(1.03);
+    transform: scale(1.035) translate3d(0, 0, 0);
+  }
+  28% {
+    filter: saturate(1.18) contrast(1.12);
+    transform: scale(1.095) translate3d(-1.5%, -.7%, 0);
+  }
+  46% {
+    filter: saturate(1.26) contrast(1.18);
+    transform: scale(1.12) translate3d(.7%, .35%, 0);
+  }
+  62% {
+    filter: saturate(1.1) contrast(1.08);
+    transform: scale(1.08) translate3d(-.4%, .2%, 0);
+  }
+}
+
+@keyframes sniper-action-sweep {
+  0%, 48%, 100% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-14deg);
+  }
+  58% {
+    opacity: .85;
+  }
+  72% {
+    opacity: 0;
+    transform: translateX(120%) skewX(-14deg);
+  }
+}
+
+@keyframes sniper-action-flash {
+  0%, 72%, 100% {
+    opacity: 0;
+  }
+  74% {
+    opacity: .55;
+  }
+  77% {
+    opacity: .08;
+  }
+  80% {
+    opacity: .35;
+  }
+  84% {
+    opacity: 0;
+  }
+}
+
+@keyframes sniper-action-grain {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(-1.5%, 1%, 0);
+  }
+  50% {
+    transform: translate3d(1%, -1.5%, 0);
+  }
+  75% {
+    transform: translate3d(1.5%, 1%, 0);
+  }
+}
+
 ::view-transition-new(root) {
   animation: theme-reveal-in .55s ease-in-out forwards;
   mix-blend-mode: normal;
@@ -145,6 +211,9 @@ body {
 
   .button-shimmer::after,
   .hero-background-drift,
+  .sniper-action-art,
+  .sniper-action-frame::before,
+  .sniper-action-frame::after,
   .application-success-burst,
   .application-success-particle,
   .loading-status-badge::after,
@@ -334,6 +403,54 @@ body {
   background:
     radial-gradient(circle at top left, rgba(251, 191, 36, .32), transparent 34%),
     linear-gradient(135deg, rgba(124, 58, 237, .2), rgba(255, 255, 255, .88));
+}
+
+.sniper-action-frame {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.sniper-action-frame::before,
+.sniper-action-frame::after {
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.sniper-action-frame::before {
+  animation: sniper-action-sweep 6.8s ease-in-out infinite, sniper-action-flash 5.2s steps(1, end) infinite;
+  background:
+    radial-gradient(circle at 72% 38%, rgba(255, 242, 188, .8), transparent 0 4%, rgba(255, 55, 55, .22) 5%, transparent 18%),
+    linear-gradient(105deg, transparent 0 38%, rgba(255, 255, 255, .55) 46%, rgba(255, 40, 40, .34) 52%, transparent 62%);
+  mix-blend-mode: screen;
+}
+
+.sniper-action-frame::after {
+  animation: sniper-action-grain .55s steps(2, end) infinite;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .1) 0 1px, transparent 1px 4px),
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, .18), transparent 0 1px),
+    radial-gradient(circle at 68% 72%, rgba(0, 0, 0, .22), transparent 0 1px);
+  background-size: auto, 9px 9px, 11px 11px;
+  mix-blend-mode: overlay;
+  opacity: .22;
+}
+
+.sniper-action-art {
+  animation: sniper-action-push 9.5s cubic-bezier(.2, .75, .18, 1) infinite;
+  transform-origin: 62% 42%;
+  will-change: transform, filter;
+}
+
+.sniper-action-frame > .game-feature-overlay,
+.sniper-action-frame > .highlight-game-overlay {
+  z-index: 2;
+}
+
+.sniper-action-frame > .absolute:not(.game-feature-overlay):not(.highlight-game-overlay) {
+  z-index: 3;
 }
 
 .highlight-game-overlay {
