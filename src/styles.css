@@ -6,23 +6,38 @@
   font-family: "Nunito", ui-rounded, "Arial Rounded MT Bold", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --theme-transition-x: 50%;
   --theme-transition-y: 50%;
+  --gb-bg: #f8fafc;
+  --gb-bg-soft: #f1f5f9;
+  --gb-panel: rgba(255, 255, 255, .9);
+  --gb-panel-strong: rgba(255, 255, 255, .98);
+  --gb-border: rgba(239, 68, 68, .28);
+  --gb-border-soft: rgba(0, 0, 0, .08);
+  --gb-text: #0f172a;
+  --gb-muted: #475569;
+  --gb-dim: #94a3b8;
+  --gb-red: #ef2424;
+  --gb-red-soft: rgba(239, 36, 36, .12);
+  --gb-cream: #f5e7d0;
 }
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: rgba(124, 58, 237, .7) rgba(245, 243, 255, .82);
+  scrollbar-color: rgba(239, 36, 36, .78) rgba(248, 250, 252, .92);
   scrollbar-width: thin;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  background: linear-gradient(180deg, #ffffff 0%, #f7f4ff 46%, #ffffff 100%);
-  color: #0f172a;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(239, 36, 36, .14), transparent 34rem),
+    radial-gradient(circle at 88% 18%, rgba(120, 18, 18, .12), transparent 26rem),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 46%, #f8fafc 100%);
+  color: var(--gb-text);
 }
 
 * {
-  scrollbar-color: rgba(124, 58, 237, .7) rgba(245, 243, 255, .82);
+  scrollbar-color: rgba(239, 36, 36, .78) rgba(248, 250, 252, .92);
   scrollbar-width: thin;
 }
 
@@ -33,26 +48,26 @@ body {
 
 ::-webkit-scrollbar-track {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(245, 243, 255, .82));
-  border: 1px solid rgba(196, 181, 253, .38);
+    linear-gradient(180deg, rgba(241, 245, 249, .94), rgba(248, 250, 252, .9));
+  border: 1px solid rgba(239, 68, 68, .24);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb {
   background:
-    linear-gradient(180deg, rgba(251, 191, 36, .88), rgba(124, 58, 237, .78));
-  border: 3px solid rgba(255, 255, 255, .86);
+    linear-gradient(180deg, rgba(239, 68, 68, .92), rgba(127, 29, 29, .86));
+  border: 3px solid rgba(248, 250, 252, .88);
   border-radius: 9999px;
-  box-shadow: inset 0 0 0 1px rgba(88, 28, 135, .18);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background:
-    linear-gradient(180deg, rgba(251, 191, 36, .96), rgba(109, 40, 217, .92));
+    linear-gradient(180deg, rgba(248, 113, 113, .96), rgba(153, 27, 27, .92));
 }
 
 ::-webkit-scrollbar-corner {
-  background: rgba(245, 243, 255, .82);
+  background: rgba(248, 250, 252, .9);
 }
 
 .site-shell {
@@ -69,6 +84,13 @@ body {
 
 .site-shell > nav {
   z-index: 20;
+}
+
+.site-content h1,
+.site-content h2,
+.site-content h3,
+.site-content p {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .34);
 }
 
 @keyframes theme-reveal-in {
@@ -253,18 +275,18 @@ body {
 }
 
 .hero-overlay {
-  background: linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.88) 38%, rgba(255,255,255,.42) 72%, rgba(255,255,255,.76) 100%);
+  background: linear-gradient(90deg, rgba(248, 250, 252, .74) 0%, rgba(255, 255, 255, .52) 34%, rgba(255, 255, 255, .08) 68%, rgba(248, 250, 252, .32) 100%);
 }
 
 .hero-fade {
-  background: linear-gradient(0deg, #ffffff 0%, transparent 100%);
+  background: linear-gradient(0deg, #f8fafc 0%, transparent 100%);
 }
 
 .hero-fallback-bg {
   background:
-    radial-gradient(circle at 68% 28%, rgba(251, 191, 36, .28), transparent 28%),
-    radial-gradient(circle at 18% 70%, rgba(14, 165, 233, .2), transparent 30%),
-    linear-gradient(135deg, rgba(245, 243, 255, .98), rgba(255, 255, 255, .88));
+    radial-gradient(circle at 68% 28%, rgba(239, 36, 36, .15), transparent 28%),
+    radial-gradient(circle at 18% 70%, rgba(80, 18, 18, .15), transparent 30%),
+    linear-gradient(135deg, #f8fafc, #f1f5f9 58%, #f8fafc);
 }
 
 .hero-background-drift {
@@ -295,20 +317,20 @@ body {
 }
 
 .glass {
-  background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(248,250,252,.92));
-  border: 1.5px solid rgba(124, 58, 237, .22);
+  background: linear-gradient(145deg, rgba(255, 255, 255, .94), rgba(248, 250, 252, .88));
+  border: 1.5px solid var(--gb-border);
   border-radius: 2rem;
-  box-shadow: 0 24px 80px rgba(70, 48, 130, .14), inset 0 1px 0 rgba(255, 255, 255, .72);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .14), inset 0 1px 0 rgba(255, 255, 255, .4);
   backdrop-filter: blur(18px);
 }
 
 .hero-stat {
   align-items: center;
   background: rgba(255, 255, 255, .9);
-  border: 1.5px solid rgba(124, 58, 237, .18);
+  border: 1.5px solid var(--gb-border);
   border-radius: 1.25rem;
-  box-shadow: 0 12px 40px rgba(70, 48, 130, .1), inset 0 1px 0 rgba(255, 255, 255, .72);
-  color: #1e293b;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .08), inset 0 1px 0 rgba(255, 255, 255, .5);
+  color: var(--gb-text);
   display: flex;
   font-weight: 800;
   gap: .8rem;
@@ -318,24 +340,24 @@ body {
 
 .game-feature,
 .section-panel {
-  background: rgba(255, 255, 255, .95);
+  background: var(--gb-panel);
 }
 
 .member-log-item {
-  background: rgba(245, 243, 255, .82);
-  border: 1.5px solid rgba(124, 58, 237, .18);
-  border-left: 4px solid rgba(124, 58, 237, .62);
+  background: rgba(12, 12, 14, .72);
+  border: 1.5px solid var(--gb-border-soft);
+  border-left: 4px solid var(--gb-red);
   border-radius: 1rem;
-  color: #334155;
+  color: var(--gb-muted);
   line-height: 1.7;
   list-style: none;
   padding: .85rem 1rem;
 }
 
 .section-panel {
-  border: 1.5px solid rgba(124, 58, 237, .18);
+  border: 1.5px solid var(--gb-border);
   border-radius: 1.5rem;
-  box-shadow: 0 18px 60px rgba(70, 48, 130, .1), inset 0 1px 0 rgba(255, 255, 255, .72);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .08);
 }
 
 .game-feature {
@@ -343,20 +365,20 @@ body {
 }
 
 .game-feature-overlay {
-  background: linear-gradient(to top, rgba(255, 255, 255, .98) 0%, rgba(255, 255, 255, .72) 42%, transparent 100%);
+  background: linear-gradient(to top, rgba(248, 250, 252, .78) 0%, rgba(248, 250, 252, .42) 34%, transparent 100%);
 }
 
 .game-feature-grid {
-  background: #e2e8f0;
+  background: rgba(239, 68, 68, .12);
 }
 
 .game-feature-tile {
-  background: #ffffff;
+  background: var(--gb-panel);
 }
 
 .highlight-game-card,
 .career-role-card {
-  background: rgba(255, 255, 255, .86);
+  background: var(--gb-panel);
 }
 
 .highlight-game-card-motion {
@@ -365,8 +387,8 @@ body {
 }
 
 .highlight-game-card-motion:hover {
-  border-color: rgba(124, 58, 237, .34);
-  box-shadow: 0 28px 80px rgba(70, 48, 130, .18), inset 0 1px 0 rgba(255, 255, 255, .7);
+  border-color: rgba(239, 68, 68, .52);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .34), 0 0 30px rgba(239, 68, 68, .12), inset 0 1px 0 rgba(255, 255, 255, .08);
 }
 
 .highlight-game-card-motion:hover .highlight-game-media {
@@ -374,7 +396,7 @@ body {
 }
 
 .highlight-game-card-motion:hover .highlight-game-status {
-  box-shadow: 0 0 22px rgba(251, 191, 36, .38);
+  box-shadow: 0 0 22px rgba(239, 68, 68, .3);
 }
 
 .highlight-game-media {
@@ -384,8 +406,8 @@ body {
 
 .highlight-game-fallback {
   background:
-    radial-gradient(circle at top left, rgba(251, 191, 36, .32), transparent 34%),
-    linear-gradient(135deg, rgba(124, 58, 237, .2), rgba(255, 255, 255, .88));
+    radial-gradient(circle at top left, rgba(239, 68, 68, .12), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, .76), rgba(241, 245, 249, .94));
 }
 
 .sniper-animation {
@@ -520,7 +542,7 @@ body {
 }
 
 .highlight-game-overlay {
-  background: linear-gradient(to top, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, .28) 54%, transparent 100%);
+  background: linear-gradient(to top, rgba(7, 7, 8, .76) 0%, rgba(7, 7, 8, .16) 54%, transparent 100%);
 }
 
 .hero-status-line,
@@ -1131,3 +1153,4 @@ button, a {
 .theme-dark .shadow-violet-950\/5 {
   --tw-shadow-color: rgba(0, 0, 0, .28) !important;
 }
+
