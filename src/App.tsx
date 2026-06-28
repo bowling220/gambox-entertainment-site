@@ -17,7 +17,7 @@ export default function App() {
       <Routes>
         <Route element={<SiteLayout />}>
           <Route index element={<IndexPage />} />
-          <Route path="play-now" element={<ComingSoon />} />
+          <Route path="play-now" element={<ComingSoon title="Play Now" />} />
           <Route path="suggestions" element={<SuggestionsPage />} />
           <Route path="games" element={<GamesPage />} />
           <Route path="games/:slug" element={<GameDetailPage />} />

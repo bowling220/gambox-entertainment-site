@@ -1,5 +1,5 @@
 import { ComingSoon } from "../components/ComingSoon";
 
 export function AboutPage() {
-  return <ComingSoon />;
+  return <ComingSoon title="About" />;
 }

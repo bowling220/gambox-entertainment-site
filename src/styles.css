@@ -121,25 +121,6 @@ body {
   }
 }
 
-@keyframes sniper-action-push {
-  0%, 100% {
-    filter: saturate(1.02) contrast(1.03);
-    transform: scale(1.035) translate3d(0, 0, 0);
-  }
-  28% {
-    filter: saturate(1.18) contrast(1.12);
-    transform: scale(1.095) translate3d(-1.5%, -.7%, 0);
-  }
-  46% {
-    filter: saturate(1.26) contrast(1.18);
-    transform: scale(1.12) translate3d(.7%, .35%, 0);
-  }
-  62% {
-    filter: saturate(1.1) contrast(1.08);
-    transform: scale(1.08) translate3d(-.4%, .2%, 0);
-  }
-}
-
 @keyframes sniper-action-sweep {
   0%, 48%, 100% {
     opacity: 0;
@@ -172,18 +153,12 @@ body {
   }
 }
 
-@keyframes sniper-action-grain {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
+@keyframes sniper-frame-cycle {
+  0%, 13.6% {
+    opacity: 1;
   }
-  25% {
-    transform: translate3d(-1.5%, 1%, 0);
-  }
-  50% {
-    transform: translate3d(1%, -1.5%, 0);
-  }
-  75% {
-    transform: translate3d(1.5%, 1%, 0);
+  14%, 100% {
+    opacity: 0;
   }
 }
 
@@ -211,7 +186,7 @@ body {
 
   .button-shimmer::after,
   .hero-background-drift,
-  .sniper-action-art,
+  .sniper-animation-frame,
   .sniper-action-frame::before,
   .sniper-action-frame::after,
   .application-success-burst,
@@ -234,6 +209,14 @@ body {
   .highlight-game-card-motion,
   .highlight-game-media {
     transition: none !important;
+  }
+
+  .sniper-animation-frame {
+    opacity: 0;
+  }
+
+  .sniper-animation-frame:first-child {
+    opacity: 1;
   }
 }
 
@@ -405,6 +388,99 @@ body {
     linear-gradient(135deg, rgba(124, 58, 237, .2), rgba(255, 255, 255, .88));
 }
 
+.sniper-animation {
+  background: #160202;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.sniper-animation::before {
+  background: #160202;
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.sniper-animation-frame {
+  /* Each frame is absolutely stacked; opacity timing chooses the visible frame. */
+  animation: sniper-frame-cycle 5.6s steps(1, end) forwards;
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.sniper-animation-frame:first-child {
+  opacity: 1;
+  z-index: 0;
+}
+
+.sniper-animation-frame:last-child {
+  animation: none;
+  opacity: 0;
+}
+
+.sniper-animation-frame:last-child {
+  animation: sniper-final-frame 5.6s steps(1, end) forwards;
+  animation-delay: 0s !important;
+}
+
+.sniper-animation--hover .sniper-animation-frame {
+  animation-play-state: paused;
+}
+
+.highlight-game-card:hover .sniper-animation--hover .sniper-animation-frame {
+  animation-play-state: running;
+}
+
+.sniper-animation--repeat .sniper-animation-frame {
+  /* Detail pages replay once, hold on frame 8, then restart after the pause. */
+  animation: sniper-frame-cycle-repeat 10.6s steps(1, end) infinite;
+}
+
+.sniper-animation--repeat .sniper-animation-frame:first-child {
+  opacity: 0;
+}
+
+.sniper-animation--repeat .sniper-animation-frame:last-child {
+  animation: sniper-final-frame-repeat 10.6s steps(1, end) infinite;
+  animation-delay: 0s !important;
+}
+
+@keyframes sniper-final-frame {
+  0%, 86.9% {
+    opacity: 0;
+  }
+  87%, 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes sniper-frame-cycle-repeat {
+  0%, 6.4% {
+    opacity: 1;
+  }
+  6.7%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sniper-final-frame-repeat {
+  0%, 46.1% {
+    opacity: 0;
+  }
+  46.2%, 99.5% {
+    opacity: 1;
+  }
+  99.6%, 100% {
+    opacity: 0;
+  }
+}
+
 .sniper-action-frame {
   isolation: isolate;
   overflow: hidden;
@@ -420,28 +496,18 @@ body {
 }
 
 .sniper-action-frame::before {
-  animation: sniper-action-sweep 6.8s ease-in-out infinite, sniper-action-flash 5.2s steps(1, end) infinite;
+  animation: sniper-action-sweep 7.2s ease-in-out infinite, sniper-action-flash 6.2s steps(1, end) infinite;
   background:
-    radial-gradient(circle at 72% 38%, rgba(255, 242, 188, .8), transparent 0 4%, rgba(255, 55, 55, .22) 5%, transparent 18%),
-    linear-gradient(105deg, transparent 0 38%, rgba(255, 255, 255, .55) 46%, rgba(255, 40, 40, .34) 52%, transparent 62%);
+    radial-gradient(circle at 72% 38%, rgba(255, 242, 188, .32), transparent 0 3%, rgba(255, 55, 55, .08) 4%, transparent 15%),
+    linear-gradient(105deg, transparent 0 42%, rgba(255, 255, 255, .22) 49%, rgba(255, 40, 40, .12) 54%, transparent 64%);
   mix-blend-mode: screen;
 }
 
 .sniper-action-frame::after {
-  animation: sniper-action-grain .55s steps(2, end) infinite;
   background:
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, .1) 0 1px, transparent 1px 4px),
-    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, .18), transparent 0 1px),
-    radial-gradient(circle at 68% 72%, rgba(0, 0, 0, .22), transparent 0 1px);
-  background-size: auto, 9px 9px, 11px 11px;
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 5px);
   mix-blend-mode: overlay;
-  opacity: .22;
-}
-
-.sniper-action-art {
-  animation: sniper-action-push 9.5s cubic-bezier(.2, .75, .18, 1) infinite;
-  transform-origin: 62% 42%;
-  will-change: transform, filter;
+  opacity: .1;
 }
 
 .sniper-action-frame > .game-feature-overlay,

@@ -6,6 +6,7 @@ import grimwoodArt from "../assets/grimwood-blackout-key-art.png";
 import sniperBanner from "../assets/sniper-banner.png";
 import { games } from "../data/siteData";
 import { SectionHeader } from "./SectionHeader";
+import { SniperAnimation } from "./SniperAnimation";
 
 export function HomeGamesSection() {
   const getGameArt = (slug: string) => {
@@ -35,8 +36,10 @@ export function HomeGamesSection() {
               className="highlight-game-card highlight-game-card-motion overflow-hidden rounded-[2rem] border border-violet-200/45 shadow-[0_22px_70px_rgba(70,48,130,0.13)] backdrop-blur-xl"
             >
               <div className={`relative h-64 overflow-hidden ${game.slug === "sniper" ? "sniper-action-frame" : ""}`}>
-                {getGameArt(game.slug) ? (
-                  <img src={getGameArt(game.slug)} alt="" className={`highlight-game-media h-full w-full object-cover ${game.slug === "sniper" ? "sniper-action-art" : ""}`} />
+                {game.slug === "sniper" ? (
+                  <SniperAnimation className="sniper-animation--hover highlight-game-media h-full w-full" />
+                ) : getGameArt(game.slug) ? (
+                  <img src={getGameArt(game.slug)} alt="" className="highlight-game-media h-full w-full object-cover" />
                 ) : (
                   <div className="highlight-game-media highlight-game-fallback flex h-full w-full items-center justify-center">
                     <img src={gamboxMark} alt="" className="h-24 w-24 rounded-[2rem] shadow-2xl shadow-violet-950/20" />

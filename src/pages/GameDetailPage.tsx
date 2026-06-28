@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import gamboxMark from "../assets/gambox-brand-icon.png";
 import grimwoodArt from "../assets/grimwood-blackout-key-art.png";
 import sniperBanner from "../assets/sniper-banner.png";
+import { SniperAnimation } from "../components/SniperAnimation";
 import { games, seedAnnouncements } from "../data/siteData";
 
 type Game = (typeof games)[number];
@@ -37,8 +38,10 @@ export function GameDetailPage() {
 
         <article className="game-feature overflow-hidden rounded-[2rem] border border-violet-200/45 shadow-[0_18px_60px_rgba(70,48,130,0.12)]">
           <div className={`relative min-h-[440px] ${isSniper ? "sniper-action-frame" : ""}`}>
-            {gameArt ? (
-              <img src={gameArt} alt={gameArtAlt} className={`h-full min-h-[440px] w-full object-cover ${isSniper ? "sniper-action-art" : ""}`} />
+            {isSniper ? (
+              <SniperAnimation alt={gameArtAlt} className="sniper-animation--repeat h-full min-h-[440px] w-full" />
+            ) : gameArt ? (
+              <img src={gameArt} alt={gameArtAlt} className="h-full min-h-[440px] w-full object-cover" />
             ) : (
               <div className="highlight-game-fallback flex h-full min-h-[440px] w-full items-center justify-center">
                 <img src={gamboxMark} alt="" className="h-28 w-28 rounded-[2rem] shadow-2xl shadow-violet-950/20" />
