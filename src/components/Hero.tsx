@@ -4,9 +4,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import gamboxMark from "../assets/gambox-brand-icon.png";
 import grimwoodArt from "../assets/grimwood-blackout-key-art.png";
+import sniperBanner from "../assets/sniper-banner.png";
 import { games } from "../data/siteData";
 
 const heroGames = games.slice(0, 3);
+
+const getGameArt = (slug: string) => {
+  if (slug === "grimwood-blackout") return grimwoodArt;
+  if (slug === "sniper") return sniperBanner;
+  return undefined;
+};
 
 export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -33,8 +40,8 @@ export function Hero() {
           transition={{ duration: 1.35 }}
           className="absolute inset-0"
         >
-          {activeGame.title === "Grimwood Blackout" ? (
-            <img src={grimwoodArt} alt="" className="hero-background-drift h-full w-full object-cover object-[62%_center]" />
+          {getGameArt(activeGame.slug) ? (
+            <img src={getGameArt(activeGame.slug)} alt="" className="hero-background-drift h-full w-full object-cover object-[62%_center]" />
           ) : (
             <div className="hero-fallback-bg flex h-full w-full items-center justify-center">
               <img src={gamboxMark} alt="" className="hero-background-drift h-40 w-40 rounded-[3rem] opacity-85 shadow-2xl shadow-violet-950/30" />
