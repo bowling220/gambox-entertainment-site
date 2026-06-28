@@ -3,10 +3,17 @@ import { ArrowRight, Gamepad2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import gamboxMark from "../assets/gambox-brand-icon.png";
 import grimwoodArt from "../assets/grimwood-blackout-key-art.png";
+import sniperBanner from "../assets/sniper-banner.png";
 import { games } from "../data/siteData";
 import { SectionHeader } from "./SectionHeader";
 
 export function HomeGamesSection() {
+  const getGameArt = (slug: string) => {
+    if (slug === "grimwood-blackout") return grimwoodArt;
+    if (slug === "sniper") return sniperBanner;
+    return undefined;
+  };
+
   return (
     <section id="games" className="px-5 py-24">
       <div className="mx-auto max-w-7xl">
@@ -28,8 +35,8 @@ export function HomeGamesSection() {
               className="highlight-game-card highlight-game-card-motion overflow-hidden rounded-[2rem] border border-violet-200/45 shadow-[0_22px_70px_rgba(70,48,130,0.13)] backdrop-blur-xl"
             >
               <div className="relative h-64 overflow-hidden">
-                {game.title === "Grimwood Blackout" ? (
-                  <img src={grimwoodArt} alt="" className="highlight-game-media h-full w-full object-cover" />
+                {getGameArt(game.slug) ? (
+                  <img src={getGameArt(game.slug)} alt="" className="highlight-game-media h-full w-full object-cover" />
                 ) : (
                   <div className="highlight-game-media highlight-game-fallback flex h-full w-full items-center justify-center">
                     <img src={gamboxMark} alt="" className="h-24 w-24 rounded-[2rem] shadow-2xl shadow-violet-950/20" />

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import gamboxMark from "../assets/gambox-brand-icon.png";
 import grimwoodArt from "../assets/grimwood-blackout-key-art.png";
+import sniperBanner from "../assets/sniper-banner.png";
 import { games, seedAnnouncements } from "../data/siteData";
 
 type Game = (typeof games)[number];
@@ -16,6 +17,13 @@ export function GameDetailPage() {
   }
 
   const isGrimwood = game.slug === "grimwood-blackout";
+  const isSniper = game.slug === "sniper";
+  const gameArt = isGrimwood ? grimwoodArt : isSniper ? sniperBanner : undefined;
+  const gameArtAlt = isGrimwood
+    ? "Grimwood Blackout base under attack in a forest at night"
+    : isSniper
+      ? "SNIPER official game soundtrack banner with a hooded Roblox sniper character"
+      : "";
   const relatedAnnouncements = seedAnnouncements
     .filter((announcement) => announcement.title.toLowerCase().includes(isGrimwood ? "grimwood" : game.title.toLowerCase().replace("!", "")) || announcement.body.toLowerCase().includes(isGrimwood ? "grimwood" : game.title.toLowerCase().replace("!", "")))
     .slice(0, 3);
@@ -29,8 +37,8 @@ export function GameDetailPage() {
 
         <article className="game-feature overflow-hidden rounded-[2rem] border border-violet-200/45 shadow-[0_18px_60px_rgba(70,48,130,0.12)]">
           <div className="relative min-h-[440px]">
-            {isGrimwood ? (
-              <img src={grimwoodArt} alt="Grimwood Blackout base under attack in a forest at night" className="h-full min-h-[440px] w-full object-cover" />
+            {gameArt ? (
+              <img src={gameArt} alt={gameArtAlt} className="h-full min-h-[440px] w-full object-cover" />
             ) : (
               <div className="highlight-game-fallback flex h-full min-h-[440px] w-full items-center justify-center">
                 <img src={gamboxMark} alt="" className="h-28 w-28 rounded-[2rem] shadow-2xl shadow-violet-950/20" />
@@ -128,6 +136,9 @@ function GrimwoodDetails({ game, relatedAnnouncements }: { game: Game; relatedAn
 }
 
 function PlanningDetails({ game }: { game: Game }) {
+  const isSniper = game.slug === "sniper";
+  const soundtrackCredits = "soundtrackCredits" in game ? game.soundtrackCredits : undefined;
+
   return (
     <div className="mt-8 grid gap-6 lg:grid-cols-[.95fr_1.05fr]">
       <DetailPanel icon={ListChecks} title="What We Know So Far">
@@ -139,9 +150,21 @@ function PlanningDetails({ game }: { game: Game }) {
       </DetailPanel>
 
       <div className="grid gap-6">
+        {isSniper && soundtrackCredits ? (
+          <DetailPanel icon={Megaphone} title="Soundtrack Credits">
+            <div className="grid gap-3">
+              {soundtrackCredits.map(([label, value]) => (
+                <div key={label} className="flex flex-col justify-between gap-2 rounded-2xl border border-violet-200/45 bg-white/45 p-4 backdrop-blur-xl sm:flex-row sm:items-center">
+                  <p className="text-sm font-black uppercase tracking-[0.18em] text-violet-700">{label}</p>
+                  <p className="font-black text-slate-950">{value}</p>
+                </div>
+              ))}
+            </div>
+          </DetailPanel>
+        ) : null}
         <RoadmapPanel game={game} />
         <DetailPanel icon={CalendarDays} title="Details Not Announced Yet">
-          <EmptyState text="This project is still early. Gameplay systems, media, release timing, and deeper production notes will be added after the team confirms them." />
+          <EmptyState text={isSniper ? "Gameplay systems, release timing, and deeper production notes will be added after the team confirms them. The current public-facing material is the soundtrack banner." : "This project is still early. Gameplay systems, media, release timing, and deeper production notes will be added after the team confirms them."} />
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
             <Link to="/games" className="animated-cta inline-flex items-center justify-center gap-2 rounded-full border border-amber-500/35 bg-amber-300/70 px-6 py-3 font-black text-slate-950 shadow-lg shadow-amber-400/20 backdrop-blur-xl transition hover:bg-amber-300/85">
               Follow Development <ArrowRight className="animated-cta-icon" size={17} />
