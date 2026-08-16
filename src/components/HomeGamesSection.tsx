@@ -19,6 +19,7 @@ export function HomeGamesSection() {
     <section id="games" className="px-5 py-24">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
+          index="01 — Lineup"
           eyebrow="3 Gambox games"
           title="The current game lineup."
           text="SNIPER!, Grimwood Blackout, and Expendable are the studio projects currently on the board."

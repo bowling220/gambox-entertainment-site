@@ -16,6 +16,7 @@ export function CareersSection({ ctaHref = "/careers", ctaLabel = "Apply Now" }:
     <section id="careers" className="px-5 py-24">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
+          index="02 — Join Us"
           eyebrow="Careers"
           title="Gambox is hiring."
           text="Apply for active Gambox roles and help build Roblox games, community systems, trailers, and production workflows."

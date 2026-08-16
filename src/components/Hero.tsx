@@ -70,7 +70,7 @@ export function Hero() {
               <img src={gamboxMark} alt="" className="h-8 w-8 rounded-2xl" />
               <span>Gambox Entertainment</span>
             </p>
-            <h1 className="max-w-4xl text-5xl font-black leading-[0.94] tracking-tight text-slate-950 md:text-7xl">{activeGame.title}</h1>
+            <h1 className="max-w-4xl text-6xl font-black uppercase leading-[0.86] tracking-[-0.03em] text-slate-950 md:text-8xl">{activeGame.title}</h1>
             <p className="hero-status-line mt-6 max-w-2xl text-xl font-semibold text-slate-800 md:text-2xl">
               <span>{activeGame.status}</span>
               <span className="loading-status-dots" aria-hidden="true">
