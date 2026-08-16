@@ -5,6 +5,7 @@ export function AboutSection() {
     <section id="about" className="px-5 py-24">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
+          index="01 — Studio"
           eyebrow="About"
           title="A Roblox-focused studio with serious production habits."
           text="Gambox Entertainment builds survival-focused Roblox experiences with clear gameplay loops and a strong player return path."

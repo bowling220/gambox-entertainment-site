@@ -1,4 +1,4 @@
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { flushSync } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -124,13 +124,15 @@ export function Navbar() {
     <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
       <nav className="site-navbar mx-auto flex max-w-7xl items-center justify-between px-5 py-3 text-slate-950 backdrop-blur-2xl">
         <Link to="/" className="flex items-center gap-3" aria-label="Gambox Entertainment home">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-violet-100/65 backdrop-blur-xl">
-            <img src={gamboxMark} alt="" className="h-6 w-6 rounded-xl" />
+          <span
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2"
+            style={{ borderColor: "var(--gb-ink)", background: "var(--gb-amber)", boxShadow: "3px 3px 0 var(--gb-ink)", transform: "rotate(-4deg)" }}
+          >
+            <img src={gamboxMark} alt="" className="h-6 w-6 rounded-md" />
           </span>
-          <div className="leading-tight">
-            <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-950">GAMBOX</p>
-            <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-950">ENTERTAINMENT</p>
-          </div>
+          <p className="font-display hidden text-sm font-black uppercase tracking-[0.04em] text-slate-950 sm:block">
+            Gambox<span className="text-violet-700">.</span>
+          </p>
         </Link>
 
         <div ref={desktopNavRef} className="site-navbar-links relative hidden items-center gap-2 p-1 backdrop-blur-xl md:flex">
@@ -150,7 +152,7 @@ export function Navbar() {
               onPointerMove={handleNavPointerMove}
               onPointerLeave={handleNavPointerLeave}
               className={({ isActive }) =>
-                `site-navbar-link rounded-full px-4 py-2 text-sm font-bold transition hover:text-violet-700 ${
+                `site-navbar-link font-mono rounded-full px-4 py-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] transition hover:text-violet-700 ${
                   isActive ? "site-navbar-link-active text-violet-700" : "text-slate-800"
                 }`
               }
@@ -160,7 +162,12 @@ export function Navbar() {
           ))}
         </div>
 
-        <ThemeSwitch className="hidden md:block" theme={theme} onClick={toggleTheme} />
+        <div className="hidden items-center gap-3 md:flex">
+          <Link to="/careers" className="button-primary hidden lg:inline-flex">
+            We&apos;re Hiring <ArrowRight size={14} />
+          </Link>
+          <ThemeSwitch theme={theme} onClick={toggleTheme} />
+        </div>
 
         <div className="flex items-center gap-2 md:hidden">
           <ThemeSwitch className="theme-switch--small" theme={theme} onClick={toggleTheme} />
@@ -182,11 +189,18 @@ export function Navbar() {
               key={label}
               to={to}
               onClick={() => setOpen(false)}
-              className={({ isActive }) => `block rounded-2xl px-4 py-3 text-sm font-bold hover:bg-violet-50/70 ${isActive ? "border border-violet-200/55 bg-violet-100/60 text-violet-700" : "text-slate-700"}`}
+              className={({ isActive }) =>
+                `font-mono block rounded-2xl px-4 py-3 text-xs font-bold uppercase tracking-[0.1em] hover:bg-violet-50/70 ${
+                  isActive ? "border border-violet-200/55 bg-violet-100/60 text-violet-700" : "text-slate-700"
+                }`
+              }
             >
               {label}
             </NavLink>
           ))}
+          <Link to="/careers" onClick={() => setOpen(false)} className="button-primary mt-3 w-full justify-center">
+            We&apos;re Hiring <ArrowRight size={14} />
+          </Link>
         </div>
       )}
     </header>
